@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 
 import "./NewPostInput.css";
 import { post } from "../../utilities";
@@ -11,53 +11,56 @@ import { post } from "../../utilities";
  * @param {string} storyId optional prop, used for comments
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters
  */
-class NewPostInput extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: "",
-    };
-  }
+const NewPostInput = (props) => {
+  const [value, setValue] = useState("");
 
   // called whenever the user types in the new post input box
-  handleChange = (event) => {
-    this.setState({
-      value: event.target.value,
-    });
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
 
   // called when the user hits "Submit" for a new post
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit && this.props.onSubmit(this.state.value);
-    this.setState({
-      value: "",
-    });
+    props.onSubmit && props.onSubmit(value);
+    setValue("");
   };
 
-  render() {
-    return (
-      <div className="u-flex">
-        <input
-          type="text"
-          placeholder={this.props.defaultText}
-          value={this.state.value}
-          onChange={this.handleChange}
-          className="NewPostInput-input"
-        />
-        <button
-          type="submit"
-          className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </button>
-      </div>
-    );
-  }
-}
+  // NEW CODED THAT I ADDED - ERIC
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        console.log("Enter key was pressed!");
+        event.preventDefault();
+        handleSubmit(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  });
+
+  return (
+    <div className="u-flex">
+      <input
+        type="text"
+        placeholder={props.defaultText}
+        value={value}
+        onChange={handleChange}
+        className="NewPostInput-input"
+      />
+      <button
+        type="submit"
+        className="NewPostInput-button u-pointer"
+        value="Submit"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
+    </div>
+  );
+};
 
 /**
  * New Message is a New Message component for messages
@@ -65,15 +68,16 @@ class NewPostInput extends Component {
  * Proptypes
  * @param {UserObject} recipient is the intended recipient
  */
-class NewMessage extends Component {
-  sendMessage = (value) => {
-    const body = { content: value };
-    post("/api/message", body);
+
+const NewMessage = () => {
+  const sendMessage = (value) => {
+    if (value.length !== 0) {
+      const body = { content: value };
+      post("/api/message", body);
+    }
   };
 
-  render() {
-    return <NewPostInput defaultText="New Message" onSubmit={this.sendMessage} />;
-  }
-}
+  return <NewPostInput defaultText={"New Message"} onSubmit={sendMessage} />;
+};
 
 export { NewMessage };
