@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 
-import "./NewPostInput.css";
+import "./NewMessage.css";
 import { post } from "../../utilities";
 
 /**
@@ -11,8 +11,19 @@ import { post } from "../../utilities";
  * @param {string} storyId optional prop, used for comments
  * @param {({storyId, value}) => void} onSubmit: (function) triggered when this post is submitted, takes {storyId, value} as parameters
  */
-const NewPostInput = (props) => {
+const NewMessage = (props) => {
   const [value, setValue] = useState("");
+
+  const sendMessage = (currValue) => {
+    console.log("GOT HRE AT LEAST!");
+    console.log(currValue);
+    if (currValue.toString().length !== 0) {
+      const body = { content: currValue };
+      post("/api/message", body).then(() => {
+        console.log("MESSAGE ENTERED");
+      });
+    }
+  };
 
   // called whenever the user types in the new post input box
   const handleChange = (event) => {
@@ -21,8 +32,12 @@ const NewPostInput = (props) => {
 
   // called when the user hits "Submit" for a new post
   const handleSubmit = (event) => {
-    event.preventDefault();
-    props.onSubmit && props.onSubmit(value);
+    console.log("ENTERED HERE");
+    // event.preventDefault();
+    console.log(value);
+    const currValue = value.toString();
+    console.log(currValue);
+    sendMessage(currValue);
     setValue("");
   };
 
@@ -31,7 +46,6 @@ const NewPostInput = (props) => {
     const listener = (event) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
         console.log("Enter key was pressed!");
-        event.preventDefault();
         handleSubmit(event);
       }
     };
@@ -39,20 +53,20 @@ const NewPostInput = (props) => {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  });
+  }, []);
 
   return (
     <div className="u-flex">
       <input
         type="text"
-        placeholder={props.defaultText}
+        placeholder={"New Message"}
         value={value}
         onChange={handleChange}
-        className="NewPostInput-input"
+        className="NewMessage-input"
       />
       <button
         type="submit"
-        className="NewPostInput-button u-pointer"
+        className="NewMessage-button u-pointer"
         value="Submit"
         onClick={handleSubmit}
       >
@@ -62,22 +76,4 @@ const NewPostInput = (props) => {
   );
 };
 
-/**
- * New Message is a New Message component for messages
- *
- * Proptypes
- * @param {UserObject} recipient is the intended recipient
- */
-
-const NewMessage = () => {
-  const sendMessage = (value) => {
-    if (value.length !== 0) {
-      const body = { content: value };
-      post("/api/message", body);
-    }
-  };
-
-  return <NewPostInput defaultText={"New Message"} onSubmit={sendMessage} />;
-};
-
-export { NewMessage };
+export default NewMessage;
