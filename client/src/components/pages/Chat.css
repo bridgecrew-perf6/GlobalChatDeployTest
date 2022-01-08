@@ -6,4 +6,13 @@
 .Chat-historyContainer {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.Chat-header {
+  padding-top: 10px;
+}
+
+.Chat-newMessage {
+  padding-top: 10px;
 }

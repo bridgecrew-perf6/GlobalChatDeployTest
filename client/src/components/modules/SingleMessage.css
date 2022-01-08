@@ -1,5 +1,6 @@
 .SingleMessage-container {
   margin: 0 0 var(--xs);
+  max-width: 800px;
 }
 
 .SingleMessage-sender {
@@ -17,4 +18,8 @@
 .SingleMessage-mine .SingleMessage-content {
   background: var(--primary--dim);
   color: var(--white);
+}
+
+.SingleMessage-timeDisplay {
+  font-size: 50%;
 }

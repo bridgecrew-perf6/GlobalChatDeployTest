@@ -51,19 +51,26 @@ const Chat = (props) => {
       )}
       {props.userId ? (
         <>
-          <h3>Global Chat Deploy</h3>
+          <h3 className="Chat-header">
+            Global Chat Deploy - Built With SocketIO, Google Auth Library, MongoDB &#38;
+            HTML/CSS/React
+          </h3>
           <div className="Chat-historyContainer" id="historyContainer">
             {messages.map((messageObj) => (
-              <SingleMessage sender={messageObj.sender.name} content={messageObj.content} />
+              <SingleMessage
+                sender={messageObj.sender.name}
+                content={messageObj.content}
+                dateString={messageObj.timestamp}
+              />
             ))}
             <AlwaysScrollToBottom />
           </div>
-          <div className="Chat-newContainer">
+          <div className="Chat-newContainer" className="Chat-newMessage">
             <NewMessage />
           </div>
         </>
       ) : (
-        <h3>Please Log In To Access Global Chat Deploy</h3>
+        <h3>Please Login To Access Global Chat Deploy</h3>
       )}
     </div>
   );
