@@ -3,8 +3,28 @@ import React, { useState, Component } from "react";
 import "./SingleMessage.css";
 
 const SingleMessage = (props) => {
+  let dayHalf = "AM";
+
+  const convertToTwoDigits = (value) => {
+    let str = value.toString();
+    if (str.length === 1) {
+      str = "0" + str;
+    }
+    return str;
+  };
+
   const dateObj = new Date(Date.parse(props.dateString));
-  console.log(dateObj.toString());
+
+  let hours = convertToTwoDigits(dateObj.getHours());
+  if (parseInt(hours) > 12) {
+    hours -= 12;
+    hours = hours.toString();
+    dayHalf = "PM";
+  }
+
+  let minutes = convertToTwoDigits(dateObj.getMinutes());
+  let seconds = convertToTwoDigits(dateObj.getSeconds());
+
   const timestamp =
     "" +
     (dateObj.getMonth() + 1) +
@@ -13,18 +33,23 @@ const SingleMessage = (props) => {
     "/" +
     dateObj.getFullYear() +
     " " +
-    dateObj.getHours() +
+    hours +
     ":" +
-    dateObj.getMinutes() +
+    minutes +
     ":" +
-    dateObj.getSeconds() +
+    seconds +
+    " " +
+    dayHalf +
     " EST";
+
   return (
-    <p className={"u-flex u-flex-alignCenter SingleMessage-container"}>
-      <span className="SingleMessage-sender u-bold">{props.sender}</span>
-      <span className="SingleMessage-content">{props.content}</span>
-      <span className="SingleMessage-timeDisplay">{timestamp}</span>
-    </p>
+    <div className="SingleMessage-outerContainer">
+      <div className={"u-flex u-flex-alignCenter SingleMessage-container"}>
+        <div className="SingleMessage-sender u-bold">{props.sender}</div>
+        <div className="SingleMessage-content">{props.content}</div>
+      </div>
+      <div className="SingleMessage-timeDisplay">{timestamp}</div>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import SingleMessage from "../modules/SingleMessage.js";
-import NewMessage from "../modules/NewMessage.js";
+import { NewMessage } from "../modules/NewPostInput.js";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { get } from "../../utilities";
 import { socket } from "../../client-socket.js";

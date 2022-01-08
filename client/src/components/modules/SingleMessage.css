@@ -1,6 +1,11 @@
 .SingleMessage-container {
-  margin: 0 0 var(--xs);
   max-width: 800px;
+}
+
+.SingleMessage-outerContainer {
+  margin: 0 0 var(--xs);
+  display: flex;
+  justify-content: space-between;
 }
 
 .SingleMessage-sender {
@@ -22,4 +27,7 @@
 
 .SingleMessage-timeDisplay {
   font-size: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
 }

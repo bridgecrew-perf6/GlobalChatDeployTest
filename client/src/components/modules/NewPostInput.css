@@ -1,23 +1,23 @@
-.NewMessage-input,
-.NewMessage-button {
+.NewPostInput-input,
+.NewPostInput-button {
   font-family: "Open Sans";
   font-size: 14px;
   padding: var(--s) var(--m);
 }
 
-.NewMessage-input {
+.NewPostInput-input {
   flex-grow: 1;
   border: var(--darkgrey) 1px solid;
   border-radius: var(--xs) 0 0 var(--xs);
   transition: box-shadow 0.1s;
 }
 
-.NewMessage-input:focus-within {
+.NewPostInput-input:focus-within {
   border-color: var(--primary--dim);
   box-shadow: 0 0 0 var(--xs) rgba(0, 123, 255, 0.25);
 }
 
-.NewMessage-button {
+.NewPostInput-button {
   color: var(--primary);
   border: var(--primary) 1px solid;
   border-radius: 0 var(--xs) var(--xs) 0;
@@ -25,7 +25,7 @@
   transition: color 0.1s, background 0.1s;
 }
 
-.NewMessage-button:hover {
+.NewPostInput-button:hover {
   color: var(--white);
   background-color: var(--primary);
 }
