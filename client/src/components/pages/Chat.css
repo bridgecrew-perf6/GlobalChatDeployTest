@@ -1,9 +1,6 @@
 .Chat-container {
-  height: 100%;
-}
-
-.Chat-newContainer {
-  width: 100%;
+  height: calc(100vh - 120px);
+  flex-grow: 1;
 }
 
 .Chat-historyContainer {

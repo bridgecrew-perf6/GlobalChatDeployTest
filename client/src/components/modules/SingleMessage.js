@@ -1,26 +1,14 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 
 import "./SingleMessage.css";
 
-/**
- * Renders a single chat message
- *
- * Proptypes
- * @param {MessageObject} message
- */
-class SingleMessage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className={"u-flex u-flex-alignCenter SingleMessage-container"}>
-        <span className=" SingleMessage-sender u-bold">{this.props.message.sender.name + ":"}</span>
-        <span className="SingleMessage-content">{this.props.message.content}</span>
-      </div>
-    );
-  }
-}
+const SingleMessage = (props) => {
+  return (
+    <div className={"u-flex u-flex-alignCenter SingleMessage-container"}>
+      <span className=" SingleMessage-sender u-bold">{props.sender}</span>
+      <span className="SingleMessage-content">{props.content}</span>
+    </div>
+  );
+};
 
 export default SingleMessage;
