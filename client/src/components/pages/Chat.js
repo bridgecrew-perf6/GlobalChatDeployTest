@@ -8,8 +8,8 @@ import { socket } from "../../client-socket.js";
 import "./Chat.css";
 import message from "../../../../server/models/message.js";
 
-// const GOOGLE_CLIENT_ID = "47158948379-484n2r7232ng9pbg3agh9k8r4o40qj2c.apps.googleusercontent.com";
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = "47158948379-484n2r7232ng9pbg3agh9k8r4o40qj2c.apps.googleusercontent.com"; // own one
+// const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com"; // belongs to web lab
 
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
