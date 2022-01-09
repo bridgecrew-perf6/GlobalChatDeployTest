@@ -21,6 +21,9 @@ const SingleMessage = (props) => {
     hours = hours.toString();
     dayHalf = "PM";
   }
+  if (hours[0] === "0") {
+    hours = hours[1];
+  }
 
   let minutes = convertToTwoDigits(dateObj.getMinutes());
   let seconds = convertToTwoDigits(dateObj.getSeconds());

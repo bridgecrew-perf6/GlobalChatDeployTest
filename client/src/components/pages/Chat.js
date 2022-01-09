@@ -13,10 +13,18 @@ const GOOGLE_CLIENT_ID = "47158948379-484n2r7232ng9pbg3agh9k8r4o40qj2c.apps.goog
 
 const Chat = (props) => {
   const [messages, setMessages] = useState([]);
+  const stateRef = useRef();
+
+  stateRef.current = messages;
 
   useEffect(() => {
     get("/api/chat").then((messages) => {
       setMessages(messages);
+    });
+
+    socket.on("message", (newMessage) => {
+      console.log(messages);
+      setMessages([...stateRef.current, newMessage]);
     });
   }, []);
 
@@ -25,10 +33,6 @@ const Chat = (props) => {
     useEffect(() => elementRef.current.scrollIntoView());
     return <div ref={elementRef} />;
   };
-
-  socket.on("message", (newMessage) => {
-    setMessages([...messages, newMessage]);
-  });
 
   return (
     <div className="u-relative u-flexColumn Chat-container">
