@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import SingleMessage from "../modules/SingleMessage.js";
-import { NewMessage } from "../modules/NewPostInput.js";
+import { NewMessage, LoginBar } from "../modules/NewPostInput.js";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { get } from "../../utilities";
 import { socket } from "../../client-socket.js";
@@ -26,6 +26,10 @@ const Chat = (props) => {
       console.log(messages);
       setMessages([...stateRef.current, newMessage]);
     });
+
+    // return () => {
+    //   socket.off("message");
+    // };
   }, []);
 
   const AlwaysScrollToBottom = () => {
@@ -37,28 +41,8 @@ const Chat = (props) => {
   return (
     <div className="u-relative u-flexColumn Chat-container">
       {props.userId ? (
-        <GoogleLogout
-          clientId={GOOGLE_CLIENT_ID}
-          buttonText="Logout"
-          onLogoutSuccess={props.handleLogout}
-          onFailure={(err) => console.log(err)}
-          className="NavBar-link NavBar-login"
-        />
-      ) : (
-        <GoogleLogin
-          clientId={GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={props.handleLogin}
-          onFailure={(err) => console.log(err)}
-          className="NavBar-link NavBar-login"
-        />
-      )}
-      {props.userId ? (
         <>
-          <h3 className="Chat-header">
-            Global Chat Deploy - Built With SocketIO, Google Auth Library, MongoDB &#38;
-            HTML/CSS/React
-          </h3>
+          <h3 className="Chat-header">Live Global Chat Deploy Test</h3>
           <div className="Chat-historyContainer" id="historyContainer">
             {messages.map((messageObj) => (
               <SingleMessage
@@ -70,11 +54,14 @@ const Chat = (props) => {
             <AlwaysScrollToBottom />
           </div>
           <div className="Chat-newContainer" className="Chat-newMessage">
-            <NewMessage />
+            <NewMessage userId={props.userId} />
           </div>
         </>
       ) : (
-        <h3>Please Login To Access Global Chat Deploy</h3>
+        <>
+          <h3>Enter Your Name Below</h3>
+          <LoginBar changeUserId={props.changeUserId} />
+        </>
       )}
     </div>
   );

@@ -41,7 +41,7 @@ const socketManager = require("./server-socket");
 const mongoConnectionURL = process.env.ATLAS_SRV;
 
 // TODO change database name to the name you chose
-const databaseName = "Cluster1";
+const databaseName = "Database1";
 
 // connect to mongodb
 mongoose

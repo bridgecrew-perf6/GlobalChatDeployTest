@@ -49,7 +49,7 @@ router.get("/chat", (req, res) => {
   Message.find(query).then((messages) => res.send(messages));
 });
 
-router.post("/message", auth.ensureLoggedIn, (req, res) => {
+router.post("/message", (req, res) => {
   //  WAS CODE IN THE TOP AS WELL,
   // console.log(`Received a chat message from ${req.user.name}: ${req.body.content}`);
 
@@ -61,8 +61,8 @@ router.post("/message", auth.ensureLoggedIn, (req, res) => {
         name: "ALL",
       },
       sender: {
-        _id: req.user._id,
-        name: req.user.name,
+        _id: 0,
+        name: req.body.name,
       },
       content: req.body.content,
     });

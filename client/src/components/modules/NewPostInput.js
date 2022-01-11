@@ -69,10 +69,10 @@ const NewPostInput = (props) => {
  * @param {UserObject} recipient is the intended recipient
  */
 
-const NewMessage = () => {
+const NewMessage = (props) => {
   const sendMessage = (value) => {
     if (value.length !== 0) {
-      const body = { content: value };
+      const body = { name: props.userId, content: value };
       post("/api/message", body);
     }
   };
@@ -81,3 +81,9 @@ const NewMessage = () => {
 };
 
 export { NewMessage };
+
+const LoginBar = (props) => {
+  return <NewPostInput defaultText={"Username"} onSubmit={props.changeUserId} />;
+};
+
+export { LoginBar };

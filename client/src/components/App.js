@@ -19,30 +19,18 @@ const App = () => {
 
   useEffect(() => {
     document.title = "Global Chat Deploy";
-    get("/api/whoami").then((user) => {
-      if (user._id) {
-        setUserId(user._id);
-      }
-    });
   }, []);
 
-  const handleLogin = (res) => {
-    console.log(`Logged in as ${res.profileObj.name}`);
-    const userToken = res.tokenObj.id_token;
-    post("/api/login", { token: userToken }).then((user) => {
-      setUserId(user._id);
-    });
-  };
-
-  const handleLogout = () => {
-    setUserId(undefined);
-    post("/api/logout");
+  const changeUserId = (newId) => {
+    if (newId.length > 0 && newId.length < 16) {
+      setUserId(newId);
+    }
   };
 
   return (
     <div className="App-container">
       <Router>
-        <Chat path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+        <Chat path="/" userId={userId} changeUserId={changeUserId} />
         <NotFound default />
       </Router>
     </div>
