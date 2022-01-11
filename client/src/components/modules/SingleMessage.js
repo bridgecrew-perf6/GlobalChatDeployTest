@@ -24,6 +24,9 @@ const SingleMessage = (props) => {
   if (hours[0] === "0") {
     hours = hours[1];
   }
+  if (hours[0] === "0") {
+    hours = "12";
+  }
 
   let minutes = convertToTwoDigits(dateObj.getMinutes());
   let seconds = convertToTwoDigits(dateObj.getSeconds());
