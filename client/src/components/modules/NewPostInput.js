@@ -83,7 +83,7 @@ const NewMessage = (props) => {
 export { NewMessage };
 
 const LoginBar = (props) => {
-  return <NewPostInput defaultText={"Username"} onSubmit={props.changeUserId} />;
+  return <NewPostInput defaultText={"Name"} onSubmit={props.changeUserId} />;
 };
 
 export { LoginBar };
