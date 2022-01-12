@@ -25,7 +25,6 @@
 .SingleMessage-content {
   padding: var(--s) var(--m);
   overflow-wrap: break-word;
-  word-wrap: break-word;
   max-width: 650px;
   background: var(--medgrey);
   border-radius: var(--l);
