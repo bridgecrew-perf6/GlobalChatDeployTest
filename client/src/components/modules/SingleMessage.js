@@ -48,7 +48,19 @@ const SingleMessage = (props) => {
     dayHalf +
     " EST";
 
-  return (
+  let userName = undefined;
+  if (props.sender.length >= 6 && props.sender.slice(0, 6) === "KEY714") {
+    userName = props.sender.slice(6);
+  }
+
+  return userName ? (
+    <div className="SingleMessage-outerContainer">
+      <div className={"u-flex u-flex-alignCenter SingleMessage-container"}>
+        <div className="SingleMessage-username">{userName + props.content}</div>
+      </div>
+      <div className="SingleMessage-timeDisplay">{timestamp}</div>
+    </div>
+  ) : (
     <div className="SingleMessage-outerContainer">
       <div className={"u-flex u-flex-alignCenter SingleMessage-container"}>
         <div className="SingleMessage-sender u-bold">{props.sender}</div>

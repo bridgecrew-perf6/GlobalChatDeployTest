@@ -27,9 +27,9 @@ const Chat = (props) => {
       setMessages([...stateRef.current, newMessage]);
     });
 
-    // return () => {
-    //   socket.off("message");
-    // };
+    return () => {
+      socket.off("message");
+    };
   }, []);
 
   const AlwaysScrollToBottom = () => {
@@ -61,6 +61,13 @@ const Chat = (props) => {
         <>
           <h3>Enter Your Name Below</h3>
           <LoginBar changeUserId={props.changeUserId} />
+          {props.idBad ? (
+            <div className="Chat-idBad">
+              That username is prohibited, jackass. Please choose another username.
+            </div>
+          ) : (
+            <div></div>
+          )}
         </>
       )}
     </div>

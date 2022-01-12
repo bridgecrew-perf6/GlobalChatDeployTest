@@ -14,6 +14,14 @@
   flex-shrink: 0;
 }
 
+.SingleMessage-username {
+  width: 300px;
+  margin-right: var(--xs);
+  flex-shrink: 0;
+  font-style: italic;
+  padding: var(--s);
+}
+
 .SingleMessage-content {
   padding: var(--s) var(--m);
   background: var(--medgrey);

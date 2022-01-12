@@ -34,6 +34,7 @@ module.exports = {
     io.on("connection", (socket) => {
       console.log(`socket has connected ${socket.id}`);
       socket.on("disconnect", (reason) => {
+        console.log(`socket has discconnected ${socket.id}`);
         const user = getUserFromSocketID(socket.id);
         removeUser(user, socket);
       });

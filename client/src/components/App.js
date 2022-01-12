@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect, useRef, Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 
@@ -16,21 +16,36 @@ import "./App.css";
 
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [idBad, setIdBad] = useState(false);
 
   useEffect(() => {
     document.title = "Global Chat Deploy";
   }, []);
 
   const changeUserId = (newId) => {
-    if (newId.length > 0 && newId.length < 16) {
+    // function should more accurately be called log in
+    const prohibitedWords = ["eric", "wang", "emma", "liwei", "dillon", "xiaojun"];
+    let containsProhibited = false;
+    for (const word of prohibitedWords) {
+      if (newId.toString().toLowerCase().includes(word)) {
+        containsProhibited = true;
+      }
+    }
+    if (newId.length <= 0 || newId.length >= 16 || containsProhibited) {
+      setIdBad(true);
+    } else {
       setUserId(newId);
+      if (newId !== "spectatormode") {
+        const body = { name: "KEY714" + newId, content: " logged in" };
+        post("/api/message", body);
+      }
     }
   };
 
   return (
     <div className="App-container">
       <Router>
-        <Chat path="/" userId={userId} changeUserId={changeUserId} />
+        <Chat id="chat" path="/" userId={userId} changeUserId={changeUserId} idBad={idBad} />
         <NotFound default />
       </Router>
     </div>
