@@ -24,7 +24,16 @@ const App = () => {
 
   const changeUserId = (newId) => {
     // function should more accurately be called log in
-    const prohibitedWords = ["eric", "wang", "emma", "liwei", "dillon", "xiaojun"];
+    const prohibitedWords = [
+      "eric",
+      "wang",
+      "emma",
+      "liwei",
+      "dillon",
+      "xiaojun",
+      "sabrina",
+      "cai",
+    ];
     let containsProhibited = false;
     for (const word of prohibitedWords) {
       if (newId.toString().toLowerCase().includes(word)) {
